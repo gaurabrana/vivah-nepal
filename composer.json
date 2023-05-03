@@ -1,0 +1,11 @@
+{
+    "config":{
+      "platform":{
+        "php":"8.2.4"
+      }  
+    },
+    "require": {
+        "google/apiclient": "^2.12.1",
+        "phpmailer/phpmailer": "^6.8"     
+    }
+}
