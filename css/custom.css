@@ -271,6 +271,11 @@ ul {
     margin-bottom: 7px;
 }
 
+.blog_item_section .single_blog_img{
+overflow-y: hidden;
+height: 178px;
+}
+
 .blog_item_section .single_blog_img img {
     width: 100%;
 }
@@ -672,4 +677,9 @@ ul {
 			0% 100%
 		);
 	}
+}
+
+.ad-List img{
+    margin-bottom: 20px;
+height: 196px;
 }

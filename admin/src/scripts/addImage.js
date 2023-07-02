@@ -35,7 +35,7 @@ var ajaxup = {
             if (path.code == 200) {                 
                     document.getElementById("upstat").innerHTML += '<div id="imageIdentifier' + path.name + '" class="col-lg-3 col-md-4 col-sm-6 mb-2 uploaded-images">' +
                         '<img src = "' + path.imagePath + '" alt = "uploaded product image"><div class="deleteImage"><input type="hidden" value="' + path.imagename + '">' +
-                        '<i id="SameimageIdentifier' + path.name + '" class="fas fa-minus-circle fa-2x"></i></div></div>';                
+                        '<i id="SameimageIdentifier' + path.name + '" class="fa fa-minus-circle fa-2x"></i></div></div>';                
             } else if (path.code == 201) {                
             document.getElementById("upstat").innerHTML += '<div class="col-lg-3 mb-2 uploaded-images"><span>' + path.error + '</span></div>';             
             }
@@ -66,11 +66,11 @@ $(document).on("click", ".deleteImage i", function(e) {
             var resultcode = JSON.parse(result);
             var resultcolor;
             $(resultHolder).css("display", "block");
-            if (resultcode.statusCode == 200) {
+            if (resultcode.code == 200) {
                 $("#imageIdentifier" + imageHolderID).remove();
                 $(resultHolder).text("Image deleted successfully.");
                 resultcolor = "alert-success";
-            } else if (resultcode.statusCode == 201) {
+            } else if (resultcode.code == 201) {
                 $(resultHolder).text("Failed to delete image. Please try again");
                 resultcolor = "alert-danger";
             }

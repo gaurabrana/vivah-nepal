@@ -26,7 +26,7 @@ if (isset($_REQUEST['delete'])) {
 						</div>
 						<nav aria-label="breadcrumb" role="navigation">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+								<li class="breadcrumb-item"><a href="index.php">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Manage Services</li>
 							</ol>
 						</nav>
@@ -45,8 +45,7 @@ if (isset($_REQUEST['delete'])) {
 					$sql = "SELECT 
 					s.id, 
 					s.serviceName, 
-					s.servicePrice, 
-					s.serviceDescription, 
+					s.servicePrice, 					
 					sc.name, 
 					s.createdDate 
 				FROM 
@@ -66,8 +65,7 @@ if (isset($_REQUEST['delete'])) {
 								<tr>
 									<th>S.NO</th>
 									<th>Service Name</th>
-									<th>Service Price</th>
-									<th>Service Description</th>
+									<th>Service Price</th>									
 									<th>Service Category</th>
 									<th>Created Date</th>
 									<th>Action</th>
@@ -80,8 +78,7 @@ if (isset($_REQUEST['delete'])) {
 									<tr>
 										<td><?php echo $row["id"]; ?></td>
 										<td><?php echo $row['serviceName']; ?></td>
-										<td>$ <?php echo $row['servicePrice']; ?></td>
-										<td><?php echo $row['serviceDescription']; ?></td>
+										<td>$ <?php echo $row['servicePrice']; ?></td>										
 										<td><?php echo $row['name']; ?></td>
 										<td><span class="badge badge-warning"><?php echo $row['createdDate']; ?></span></td>
 										<td>
@@ -90,7 +87,8 @@ if (isset($_REQUEST['delete'])) {
 												<input type="hidden" name="id" value="<?php echo $row["id"] ?>">
 
 												<div class="btn-group">
-													<button type="submit" class="btn btn-danger" name="delete"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
+													<a href="manage-single-service.php?id=<?php echo $row["id"] ?>" class="btn btn-secondary mr-2"><i class="icon-copy fa fa-edit" aria-hidden="true"></i></a>
+													<button type="submit" id="deleteService<?php echo $row["id"] ?>" class="btn btn-danger deleteServiceButton<?php echo $row["id"] ?>" name="delete"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
 												</div>
 
 											</form>
@@ -114,23 +112,3 @@ if (isset($_REQUEST['delete'])) {
 		<?php
 		include("base/footer.php");
 		?>
-
-		<!-- js -->
-		<script src="vendors/scripts/script.min.js"></script>
-		<script src="vendors/scripts/process.js"></script>
-		<script src="vendors/scripts/layout-settings.js"></script>
-		<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-		<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-		<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-		<!-- buttons for Export datatable -->
-		<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-		<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-		<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-		<!-- Datatable Setting js -->
-		<script src="vendors/scripts/datatable-setting.js"></script>
-		</body>

@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     $servicDescription = $_POST['servicDescription'];
 
 
-    $sql = "insert into services(serviceName,servicePrice,servicDescription)values(:serviceName,:servicePrice,:servicDescription)";
+    $sql = "insert into services(serviceName,servicePrice,serviceDescription)values(:serviceName,:servicePrice,:servicDescription)";
 
     $query = $conn->prepare($sql);
 
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
 
 $last_Id = $conn->lastInsertId();
 if ($last_Id) {
-    $msg = "Ticket Book successfully";
+    $msg = "Service Added successfully";
 } else {
     $error = "Something went wrong. Please try again";
 }
@@ -94,29 +94,64 @@ if ($last_Id) {
                     <h4 class="text-blue h4">Add Service</h4>
                 </div>
                 <div class="wizard-content">
-                    <form class="tab-wizard wizard-circle wizard" method="post" onsubmit="return validation()">
+                    <form class="tab-wizard wizard-circle wizard" id="addNewServiceForm">
                         <section>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
+                                <div class="col-md-12">
+                                <div class="form-group">
                                         <label>Service Name</label>
-                                        <input type="text" class="form-control" placeholder="Required" name="serviceName">
+                                        <input type="text" required class="form-control" placeholder="Required" name="serviceName">
                                         <!-- <span id="username" class="text-danger font-weight-bold"> </span> -->
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                        <label>Service Category</label>
+                                        <select class="form-control" name="serviceCategory" id="screen-group-name">
+                                            <?php
+                                            $sql = "SELECT * from service_category";
+                                            $query = $conn->query($sql);
+                                            $query->execute();
+                                            $result = $query->fetchAll(PDO::FETCH_OBJ);
+                                            if ($query->rowCount() > 0) {
+                                                foreach ($result as $row) {
+                                                    echo '<option title="'.$row->name.'" value="' . $row->id . '">' . $row->name . '</option>';
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Service Price</label>
-                                        <input type="text" class="form-control" placeholder="Optional" name="servicePrice">
+                                        <input type="text" required class="form-control" placeholder="Required" name="servicePrice">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Servic Description</label>
+                                        <label>Service Description</label>
                                         <textarea class="form-control" rows="2" cols="20" placeholder="Required" name="servicDescription"></textarea>
                                         <!-- <span id="numofadult" class="text-danger font-weight-bold"> </span> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Service Images</label>
+                                    <div>
+                                        <label for="image-input">
+                                        <div class="image-preview">
+                                            <img src="../images/addImagePlaceholder.png" alt="Your Image" />
+                                        </div>
+                                        </label>
+                                        <input type="file" hidden name="fileToUpload[]" id="image-input" onchange="previewHeroImage(this)" multiple accept="image/*">
+                                    </div>                                    
+                                    <div id="holdPreviewImagesFromSelection" class="row">
+
                                     </div>
                                 </div>
                             </div>
@@ -128,57 +163,30 @@ if ($last_Id) {
                     </form>
                 </div>
             </div>
-
-
-
-            <script type="text/javascript">
-                function validation() {
-
-                    var user = document.getElementById('user').value;
-                    var numberofadult = document.getElementById('numof').value;
-                    var numberofchild = document.getElementById('numberofch').value;
-
-
-
-                    if (user == "") {
-                        document.getElementById('username').innerHTML = " ** Please fill the username field";
-                        return false;
-                    }
-                    if ((user.length <= 2) || (user.length > 30)) {
-                        document.getElementById('username').innerHTML = " ** Username lenght must be between 2 and 20";
-                        return false;
-                    }
-                    if (!isNaN(user)) {
-                        document.getElementById('username').innerHTML = " ** only characters are allowed";
-                        return false;
-                    }
-
-
-
-                    if (numberofadult == "") {
-                        document.getElementById('numofadult').innerHTML = " ** Please fill number of adult";
-                        return false;
-                    }
-                    if (isNaN(numberofadult)) {
-                        document.getElementById('numofadult').innerHTML = " ** user must write digits only not characters";
-                        return false;
-                    }
-
-
-
-                    if (numberofchild == "") {
-                        document.getElementById('numofchild').innerHTML = " ** Please fill number of child";
-                        return false;
-                    }
-                    if (isNaN(numberofchild)) {
-                        document.getElementById('numofchild').innerHTML = " ** user must write digits only not characters";
-                        return false;
-                    }
-
-                }
-            </script>
-
         </div>
+        <script type="text/javascript">
+  function previewHeroImage(input) {
+
+    document.getElementById('holdPreviewImagesFromSelection').innerHTML = '';
+    if (input.files && input.files.length > 0) {
+// Get the file input element and the container div
+  var containerDiv = document.getElementById('holdPreviewImagesFromSelection');
+      for (var i = 0; i < input.files.length; i++) {        
+        var reader = new FileReader();
+        reader.onload = function(e) {
+        var img = document.createElement('img');
+        img.src = e.target.result;
+        // Append the image element to the container div
+        var imageContainer = document.createElement('div');
+        imageContainer.className = 'col-md-3';
+        imageContainer.appendChild(img);  
+        containerDiv.appendChild(imageContainer);      
+        };
+        reader.readAsDataURL(input.files[i]);
+    }
+    }
+  }
+</script>
         <?php
         include("base/footer.php");
         ?>

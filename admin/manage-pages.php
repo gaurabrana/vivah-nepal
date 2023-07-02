@@ -32,36 +32,52 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 	</div>
 	<div class="accordion" id="accordionExample">
 		<?php
-		$sql = "SELECT id, name from pages";
+		$sql = "SELECT id, name, hero_image from pages";
 		$query = $conn->query($sql);
 		$query->execute();
 		$result = $query->fetchAll(PDO::FETCH_OBJ);
 		if ($query->rowCount() > 0) {
 			foreach ($result as $row) {
+				if (strlen($row->hero_image) > 0) {
+					$buttonName = "Update";
+				} else {
+					$buttonName = "Add";
+				}
+				$pageId = $row->id;
+				$isHomepage = ($pageId == 1 && $row->name == "Homepage");
+				$firstCol = !$isHomepage ? "col-md-8" : "col-md-12";
+				$secondCol = !$isHomepage ? "col-md-4" : "col-md-12";
+				$showName = $isHomepage ? "Video" : "Image";
 				echo '<div class="card">
-				<div class="card-header" id="page' . $row->id . '">
+				<div class="card-header" id="page' . $pageId . '">
 					<h2 class="mb-0">
-						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#pageCollapsible' . $row->id . '" aria-expanded="true" aria-controls="#pageCollapsible' . $row->id . '">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#pageCollapsible' . $pageId . '" aria-expanded="true" aria-controls="#pageCollapsible' . $pageId . '">
 							' . $row->name . '
 						</button>
 					</h2>
 				</div>
-				<div id="pageCollapsible' . $row->id . '" class="collapse" aria-labelledby="' . $row->id . '" data-parent="#accordionExample">
+				<div id="pageCollapsible' . $pageId . '" class="collapse" aria-labelledby="' . $pageId . '" data-parent="#accordionExample">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-8">
-								<form>
+							<div class="'.$firstCol.'">
+								<form class="pageForms" id="formFor' . $pageId . '" enctype="multipart/form-data">
 									<div class="form-group row">
-										<label class="col-lg-2 col-form-label" for="val-image">Hero Image<span class="text-danger"></span>
+										<label class="col-lg-2 col-form-label" for="val-image">Hero '.$showName.'<span class="text-danger"></span>
 										</label>
-										<input type="file" required id="image-input' . $row->id . '" name="fileToUpload" accept="image/*" onchange="previewHeroImage(this,' . $row->id . ')">
-										</div>									
-										<input id="heroImageFor' . $row->id . '" class="btn btn-large btn-secondary" type="submit" name="submit">
+										<input type="text" readonly hidden required value="' . $row->name . '"" id="pageNameFor' . $pageId . '">';
+				$acceptType = $isHomepage ? "video/*" :  "image/*";
+				echo '<input type="file" required id="image-input' . $pageId . '" name="fileToUpload" accept="' . $acceptType . '" onchange="previewHeroImage(this,' . $pageId . ')">';
+				echo '</div>									
+										<input id="heroImageFor' . $pageId . '" class="btn btn-large btn-secondary" type="submit" name="' . $buttonName . '">
 								</form>
 							</div>
-							<div class="col-md-4">
-							<img class="imageHolderForHero rounded" id="image-preview' . $row->id . '" src="" alt="Image Preview">
-							</div>							
+							<div class="'.$secondCol.'">';
+				if ($isHomepage) {
+					echo '<video playsinline controls class="videoHolderForHero rounded" id="video-preview' . $pageId . '" src="../images/hero-image/' . $row->hero_image . '" alt="Video Preview"></video>';
+				} else {
+					echo '<img class="imageHolderForHero rounded" id="image-preview' . $pageId . '" src="../images/hero-image/' . $row->hero_image . '" alt="Image Preview">';
+				}
+				echo '</div>							
 						</div>
 					</div>
 				</div>
@@ -73,21 +89,20 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 </div>
 <script type="text/javascript">
 	function previewHeroImage(input, idNum) {
-		var preview = document.getElementById("image-preview" + idNum);
+		var id  = idNum == 1 ? "video-preview" : "image-preview";
+		var preview = document.getElementById(id +  idNum);
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				preview.src = e.target.result;
 			}
 			reader.readAsDataURL(input.files[0]);
-			$("#image-preview" + idNum).css("display", "block");
-		}
-		else{
-			$("#image-preview" + idNum).css("display", "none");
+			$("#" + id + idNum).css("display", "block");
+		} else {
+			$("#" + id + idNum).css("display", "none");
 		}
 	}
 </script>
-<script type="text/javascript" src="src/scripts/pages.js"></script>
 <?php
 include("base/footer.php");
 ?>

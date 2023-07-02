@@ -1,28 +1,37 @@
 <?php
-if(isset($_POST['action'])){    
-    include("connect.php");    
-    foreach($_POST as $key => $value){
-        if($value == ""){
-            echo json_encode(array("statusCode" => 203));    
+if (isset($_POST['action'])) {
+    include '../base/db.php';
+    foreach ($_POST as $key => $value) {
+        if ($value == "") {
+            echo json_encode(array("code" => 203));
         }
     }
     extract($_POST);
     // add membership
-    if($_POST['action'] == "submit"){
-        $sql = "Insert into membership_packages values ('','$membershipname','$membershipprice','$membershipdiscount','$membershipdeliverycharge','$membershipCoupons','$membershipgiveaway','$membershiptype','$membershipduration','$featureditem')";
+    $membershipdescription = trim($membershipdescription);
+    if ($_POST['action'] == "submit") {
+        $sql = "Insert into packages (name,description,price,discount) values ('$membershipname','$membershipdescription','$membershipprice','$membershipdiscount')";
+    } else {
+        $sql = "Update packages set name='$membershipname', price='$membershipprice', discount = '$membershipdiscount', description = '$membershipdescription' where id = '$packageid'";
     }
-    else{
-        $sql = "Update membership_packages set name='$membershipname', price='$membershipprice', discount = '$membershipdiscount', delivery_charge = '$membershipdeliverycharge', coupons = '$membershipCoupons', giveaway = '$membershipgiveaway', type='$membershiptype', duration='$membershipduration', featured_item = '$featureditem' where id = '$packageid'";
-    }    
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        echo json_encode(array("statusCode" => 200));
+    $query = $conn->query($sql);
+    $query->execute();
+    if ($query) {
+        echo json_encode(array("code" => 200));
+    } else {
+        echo json_encode(array("code" => 201));
     }
-    else{
-        echo json_encode(array("statusCode" => 201));
+} else if (isset($_POST['deleteMembership'])) {
+    include '../base/db.php';
+    $id = $_POST['id'];
+    $sql = "delete from packages where id = $id";
+    $query = $conn->query($sql);
+    $query->execute();
+    if ($query) {
+        echo json_encode(array("code" => 200));
+    } else {
+        echo json_encode(array("code" => 201));
     }
+} else {
+    echo json_encode(array("code" => 202));
 }
-else{
-    echo json_encode(array("statusCode" => 202)); 
-}
-?>

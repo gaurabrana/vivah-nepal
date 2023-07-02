@@ -144,9 +144,6 @@ sup {
 sub {
   bottom: -.25em; }
 
-sup {
-  top: -.5em; }
-
 a {
   color: #78d5ef;
   text-decoration: none;
@@ -4334,7 +4331,7 @@ input[type="button"].btn-block {
 
 .close {
   float: right;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1;
   color: #000;
@@ -7503,13 +7500,13 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  height: 100%;
+  height: 50%;
   position: relative;  
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url('https://th.bing.com/th/id/R.b144ccb89f1c1b7110d5afd4cc066a4a?rik=II%2f7M8Bh5%2bpIBw&pid=ImgRaw&r=0');
+  background-size: cover;  
   z-index: 1;
-  height: 630px; }
+}
   @media (max-width: 767.98px) {
     .hero-wrap {
       height: 750px; } }
@@ -7614,7 +7611,7 @@ h1, h2, h3, h4, h5,
     right: 0;
     bottom: 0;
     content: '';
-    opacity: .9;
+    opacity: .8;
     background: var(--primary-color);
     background: -moz-linear-gradient(180deg, var(--primary-color) 0%, var(--primary-alternative-color) 72%, white 100%);
     background: -webkit-gradient(left bottom, right top, color-stop(0%, var(--primary-color)), color-stop(72%, white), color-stop(100%, white));
@@ -7803,7 +7800,7 @@ h1, h2, h3, h4, h5,
   margin-bottom: 30px; }
   .work-entry .img {
     display: block;
-    height: 400px;
+    height: 190px;
     position: relative; }
   .work-entry .text {
     background: var(--primary-color);
@@ -8521,10 +8518,10 @@ textarea.form-control {
   .ftco-counter .text strong.number {
     font-weight: 400;
     font-size: 34px;
-    color: #fff; }
+    color: var(--primary-color); }
   .ftco-counter .text span {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.7); }
+    color: var(--primary-color); }
   @media (max-width: 767.98px) {
     .ftco-counter .counter-wrap {
       margin-bottom: 20px; } }
@@ -8742,8 +8739,7 @@ textarea.form-control {
     padding: 0;
     display: block; }
     .block-7 .price sup {
-      font-size: 20px;
-      top: -.7em;
+      font-size: 20px;      
       color: var(--primary-color); }
     .block-7 .price .number {
       font-size: 28px;
@@ -9180,3 +9176,88 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+    .gallery-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      /* Compensate for excess margin on outer gallery flex items */
+      margin: -1rem -1rem;
+      justify-content: space-evenly;
+    }
+    
+    .gallery-item {
+      /* Minimum width of 24rem and grow to fit available space */
+      flex: 1 0 24rem;
+      /* Margin value should be half of grid-gap value as margins on flex items don't collapse */
+      margin: 1rem;
+      box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+        position: relative;
+    
+    }
+    
+    .gallery-video-delete-button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+      }
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .gallery-item {
+    flex-basis: 50%; /* Two items per row on small devices */
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-item {
+    flex-basis: 100%; /* One item per row on extra-small devices */
+  }
+}
+
+      .close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      #scroll-hero {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+      }
+      
+      .urLVideos .video-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+      
+      .urLVideos .video-gallery a {
+        flex-basis: calc(33.33% - 10px); /* Adjust the width as needed */
+        margin: 5px;
+        display: block;
+      }
+      
+      .urLVideos .video-gallery img {
+        width: 100%;
+        height: auto;
+      }
+
+      .ad-Container img{
+        max-width: 100%;
+      }
+      

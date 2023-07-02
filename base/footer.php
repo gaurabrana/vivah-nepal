@@ -125,19 +125,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script src="js/main.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-<script type="text/javascript">
-    $(function() {
-        $('#datetimepicker1').datepicker({
-            dateFormat: "yy-mm-dd"
-        }).val();
-    });
-
-    $(function() {
-        $('#datetimepicker2').datepicker({
-            dateFormat: "yy-mm-dd"
-        }).val();
-    });
-</script>
 <!-- COMMON SCRIPTS -->
 <!-- <script src="js/common_scripts_min.js"></script> -->
 

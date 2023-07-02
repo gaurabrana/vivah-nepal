@@ -437,9 +437,9 @@ class Dropzone extends Emitter {
 
       /**
        * If the server response was invalid.
-       * `{{statusCode}}` will be replaced with the servers status code.
+       * `{{code}}` will be replaced with the servers status code.
        */
-      dictResponseError: "Server responded with {{statusCode}} code.",
+      dictResponseError: "Server responded with {{code}} code.",
 
       /**
        * If `addRemoveLinks` is true, the text to be used for the cancel upload link.
@@ -2219,7 +2219,7 @@ class Dropzone extends Emitter {
     }
 
     for (let file of files) {
-      this._errorProcessing(files, response || this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr);
+      this._errorProcessing(files, response || this.options.dictResponseError.replace("{{code}}", xhr.status), xhr);
     }
   }
 

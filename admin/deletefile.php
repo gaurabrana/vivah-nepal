@@ -2,10 +2,10 @@
 if(isset($_POST['filepath'])){
     $filepath = $_POST['filepath'];
     if (!unlink($filepath)) { 
-        echo json_encode(array("statusCode" => 201));
+        echo json_encode(array("code" => 201));
     } 
     else { 
-        echo json_encode(array("statusCode" => 200));
+        echo json_encode(array("code" => 200));
     } 
 }
 ?>

@@ -68,7 +68,7 @@ if (isset($_GET['q']) && $_GET['q'] != null) {
 										} else {
 											echo '">';
 										}
-										echo '<img src="images/events/' . $row->path . '" alt="image for feature" data-zoom-image="images/events/' . $row->path . '" />
+										echo '<img src="images/services/' . $row->path . '" alt="image for feature" data-zoom-image="images/events/' . $row->path . '" />
 		</div>';
 									}
 								}
@@ -130,16 +130,7 @@ if (isset($_GET['q']) && $_GET['q'] != null) {
 					<p class="product-price">Rs '.$price.'</p>					
 					<p class="product-description mt-20">
 					'.$description.'
-					</p>
-					<div class="product-size">
-						<span>Person:</span>
-						<select class="form-control">
-							<option>10-50</option>
-							<option>50-100</option>
-							<option>100-200</option>
-							<option>200+</option>
-						</select>
-					</div>					
+					</p>										
 					<button id="bookService'.$id.'" class="btn btn-warning mt-2 bookingButton">Book Service</button>';
 	}
 					?>
@@ -248,7 +239,7 @@ if (isset($_GET['q']) && $_GET['q'] != null) {
 					<div class="product-item">
 						<div class="product-thumb">
 							<span class="bage">'.$categoryN.'</span>
-							<img class="img-responsive" src="images/events/'.$imgPath.'" alt="product-img" />
+							<img class="img-responsive" src="images/services/'.$imgPath.'" alt="product-img" />
 							<div class="preview-meta">
 								<ul>
 									<li>

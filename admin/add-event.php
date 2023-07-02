@@ -7,30 +7,8 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 } else {
     echo "<script> location.href='index.php'; </script>";
 }
-
-$msg = "";
-$error = "";
-
-if (isset($_POST['submit'])) {
-
-    $event = $_POST['event'];
-
-    $sql = "insert into event(eventName)values(:event)";
-
-    $query = $conn->prepare($sql);
-
-    $query->bindParam(':event', $event, PDO::PARAM_STR);
-
-    $query->execute();
-}
-
-$last_Id = $conn->lastInsertId();
-if ($last_Id) {
-    $msg = "Ticket Book successfully";
-} else {
-    $error = "Something went wrong. Please try again";
-}
 ?>
+
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
@@ -42,7 +20,7 @@ if ($last_Id) {
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Add Event</li>
                             </ol>
                         </nav>
@@ -50,63 +28,81 @@ if ($last_Id) {
 
                 </div>
             </div>
-            <?php
-            if (isset($_POST['submit'])) {
-                if ($error) {
-            ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo htmlentities($error); ?>
-                    </div>
-
-
-                <?php
-                } else if ($msg) {
-                ?>
-                    <div class="alert alert-primary" role="alert">
-                        <?php echo htmlentities($msg); ?>
-                    </div>
-
-
-            <?php
-                }
-            }
-            ?>
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <h4 class="text-blue h4">Add Event</h4>
                 </div>
                 <div class="wizard-content">
-                    <form class="tab-wizard wizard-circle wizard" method="post" onsubmit="return validation()">
+                    <form class="tab-wizard wizard-circle wizard" id="addNewEventForm">
                         <section>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input type="text" class="form-control" name="event" placeholder="Required" id="user">
-                                        <span id="username" class="text-danger font-weight-bold"> </span>
-
+                                        <input type="text" class="form-control" name="eventName" placeholder="Event Name" required />
                                     </div>
                                 </div>
-                                <div class="col-md-12">                                                    
-                        <div class="form-group row">
-                            <label class="col-lg-2 col-form-label" for="val-image">Event Images<span class="text-danger"></span>
-                            </label>
-                            <div class="col-lg-3" id="imageHold">                                
-                                <input type="file" name="subimages[]" id="imageSub" multiple style="display:none;" />
-                                <img class="addSubImages" src="src/images/addimages.png" alt="#">
-                            </div>
-                        </div>
-                        <div class="row mb-3" id="upstat">
-                        
-                        </div>
-                        <div style="display:none;" id="hold-image-result" class="alert" role="alert">
-                         
-                        </div>
-                                    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input type="text" class="form-control" name="eventPrice" placeholder="Event Price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="date" class="form-control" id="eventStartDate" name="eventStartDate" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                        <input type="date" class="form-control" id="eventEndDate" name="eventEndDate" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Max Guests Entry</label>
+                                        <input type="number" class="form-control" id="noOfGuest" name="eventMaxGuest" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" id="eventLocation" class="form-control" name="eventLocation" placeholder="Location" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea type="text" class="form-control" name="eventDescription" required>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label" for="val-image">Event Images</label>
+                                        <div>
+                                            <label for="UploadButton">
+                                                <div class="image-preview">
+                                                    <img class="addFiles" src="../images/addImagePlaceholder.png" alt="Your Image" />
+                                                </div>
+                                            </label>
+                                            <input type="file" hidden name="fileToUpload[]" id="UploadButton" onchange="previewFiles(this)" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hold-uploaded-files">
+                                    <div class="col-md-12 hold-images">
+                                        <h4 hidden>Selected Images</h4>
+                                        <div class="image-row"></div>
+                                    </div>
+                                    <div class="col-md-12 hold-videos">
+                                        <h4 hidden>Selected Videos</h4>
+                                        <div class="video-row"></div>
+                                    </div>
                                 </div>
                             </div>
-
-
                             <div class="btn-list">
                                 <button type="submit" name="submit" class="btn btn-success btn-lg btn-block">Add</button>
                             </div>
@@ -117,52 +113,72 @@ if ($last_Id) {
 
 
         </div>
-        <script type="text/javascript">
-            function validation() {
+        <script type="text/javascript">                
+            function previewFiles(input) {
+                var fileArray = input.files;
+                var imageContainer = document.querySelector('.hold-images .image-row');
+                var videoContainer = document.querySelector('.hold-videos .video-row');
+                var imageHeading = document.querySelector('.hold-images h4');
+                var videoHeading = document.querySelector('.hold-videos h4');
 
-                var user = document.getElementById('user').value;
-                var numberofadult = document.getElementById('numof').value;
-                var numberofchild = document.getElementById('numberofch').value;
-
-
-
-                if (user == "") {
-                    document.getElementById('username').innerHTML = " ** Please fill the username field";
-                    return false;
-                }
-                if ((user.length <= 2) || (user.length > 30)) {
-                    document.getElementById('username').innerHTML = " ** Username lenght must be between 2 and 20";
-                    return false;
-                }
-                if (!isNaN(user)) {
-                    document.getElementById('username').innerHTML = " ** only characters are allowed";
-                    return false;
+                if(fileArray.length == 0){                    
+                videoHeading.setAttribute('hidden','');
+                imageHeading.setAttribute('hidden','');
+                videoContainer.innerHTML = '';
+                imageContainer.innerHTML = '';
                 }
 
+                for (var i = 0; i < fileArray.length; i++) {
+                    var file = fileArray[i];
+                    var reader = new FileReader();                    
+                    reader.onload = (function(file) {
+                        return function(e) {
+                            var fileData = e.target.result;
+                            var fileType = file.type;
 
+                            var itemContainer = document.createElement('div');
+                            itemContainer.classList.add('uploaded-item');
 
-                if (numberofadult == "") {
-                    document.getElementById('numofadult').innerHTML = " ** Please fill number of adult";
-                    return false;
+                            if (fileType.includes('image')) {
+                                var imgElement = document.createElement('img');
+                                imgElement.src = fileData;
+                                itemContainer.appendChild(imgElement);
+                                imageHeading.removeAttribute('hidden');
+                            } else if (fileType.includes('video')) {
+                                var videoElement = document.createElement('video');
+                                videoElement.src = fileData;
+                                videoElement.setAttribute('controls', '');
+                                itemContainer.appendChild(videoElement);
+                                videoHeading.removeAttribute('hidden');
+                            }
+
+                            if (fileType.includes('image')) {
+                                imageContainer.appendChild(itemContainer);
+                            } else if (fileType.includes('video')) {
+                                videoContainer.appendChild(itemContainer);
+                            }                            
+                        };
+                    })(file);
+                    reader.readAsDataURL(file);
                 }
-                if (isNaN(numberofadult)) {
-                    document.getElementById('numofadult').innerHTML = " ** user must write digits only not characters";
-                    return false;
-                }
-
-
-
-                if (numberofchild == "") {
-                    document.getElementById('numofchild').innerHTML = " ** Please fill number of child";
-                    return false;
-                }
-                if (isNaN(numberofchild)) {
-                    document.getElementById('numofchild').innerHTML = " ** user must write digits only not characters";
-                    return false;
-                }
-
+            
             }
-        </script>        
+
+            var startDateInput = document.getElementById('eventStartDate');
+            var endDateInput = document.getElementById('eventEndDate');
+
+            startDateInput.addEventListener('change', function() {                
+                var startDate = new Date(startDateInput.value);
+                var endDate = new Date(endDateInput.value);
+
+                if (startDate > endDate || !endDate) {
+                    endDateInput.value = startDateInput.value;
+                }
+
+                // Set the minimum selectable date for the end date input
+                endDateInput.min = startDateInput.value;
+            });
+        </script>
         <?php
         include("base/footer.php");
         ?>

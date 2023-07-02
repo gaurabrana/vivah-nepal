@@ -1,0 +1,245 @@
+@charset "UTF-8";
+
+  .flip-container .back {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .flipgallery {
+    position: relative;
+    background-color: #dbd8d3;
+    padding-bottom: 30px;
+  }
+
+  .flipgallery:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+  }
+
+  .flip-gallery {
+    padding-top: 90px;
+    position: relative;
+    transition: all 0.6s ease 0s;
+  }
+
+  .flip-gallery>div {
+    text-align: center;
+    display: none;
+  }
+
+  .flip-gallery>div:first-child {
+    display: block;
+  }
+
+  .flip-gallery>span {
+    text-align: center;
+    color: #262526;
+    display: block;
+    padding: 70px 0 50px;
+    font-weight: bold;
+  }
+
+  .flip-gallery>span a {
+    color: #262526;
+    text-decoration: none;
+  }
+
+  @media (max-width: 460px) {
+    .flip-gallery>span a {
+      display: block;
+    }
+  }
+
+  @media (min-width: 460px) {
+    .flip-gallery>span a+a {
+      margin-left: 20px;
+      padding-left: 20px;
+      border-left: 1px solid #262526;
+    }
+  }
+
+  .flip-gallery .tab-titles {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    display: block;
+    width: 100%;
+    padding-bottom: 10px;
+    font-family: Arial;
+    font-style: normal;
+    font-size: 12px;
+    color: #262526;
+    z-index: 1;
+    background-color: #fff;
+    transition: all 0.6s ease 0s;
+  }
+
+  .flip-gallery .tab-titles span {
+    padding: 5px 20px;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+  }
+
+  @media (min-width: 920px) {
+    .flip-gallery .tab-titles span {
+      display: inline-block;
+    }
+
+    .flip-gallery .tab-titles span:before {
+      color: #57534a;
+      content: "•";
+      height: 8px;
+      left: 0px;
+      line-height: 0.5;
+      position: absolute;
+      top: 13px;
+      width: 8px;
+    }
+
+    .flip-gallery .tab-titles span.filter {
+      display: none;
+    }
+  }
+
+  @media (max-width: 920px) {
+    .flip-gallery .tab-titles {
+      height: 20px;
+      overflow: hidden;
+    }
+  }
+
+  @media (min-width: 920px) {
+    .flip-gallery .tab-titles {
+      height: auto !important;
+    }
+  }
+
+  /* flip the pane when hovered */
+  .flip-container:hover .flipper {
+    transform: rotateY(-180deg);
+  }
+
+  .flip-container,
+  .front,
+  .back {
+    height: 365px;
+    width: 265px;
+  }
+
+  .flip-container {
+    display: inline-block;
+    margin: 0 14px;
+    transition: all 0.6s ease 0s;
+    /* flip speed goes here */
+    /* hide back of pane during swap */
+    /* add zindex:2 to front pane to  placed it above back when swapped.
+   * this way u can show half front and half back */
+    /* back, initially hidden pane */
+  }
+
+  .flip-container .flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: perspective(1000px);
+  }
+
+  .flip-container .front,
+  .flip-container .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    font-size: 14px;
+    font-family: Arial;
+  }
+
+  .flip-container .front b,
+  .flip-container .back b {
+    color: #262526;
+    font-family: Arial;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  }
+
+  .flip-container .front {
+    color: #57534a;
+    /* z-index: 2;*/
+  }
+
+  .flip-container .front>div {
+    padding-top: 15px;
+  }
+
+  .flip-container .back {
+    transform: rotateY(180deg);
+    padding: 50px 25px;
+    background-size: cover;
+  }
+
+  .flip-container .back>div {
+    min-height: 196px;
+    padding: 10px 0;
+  }
+
+  .flip-container.hide {
+    opacity: 0;
+  }
+
+  .front {
+    width: 100%;
+    /* Or set height: 80% to adjust the height instead */
+    max-width: 500px;
+    /* Optional: limit the maximum width of the container */
+    margin: auto;
+    /* Optional: center the container horizontally */
+    display: flex;
+    /* Optional: use flexbox for centering vertically */
+    align-items: center;
+    /* Optional: center the image vertically */
+    justify-content: center;
+    /* Optional: center the image horizontally */
+    overflow: hidden;
+    /* Optional: hide any overflow from the image */
+  }
+
+  .front img {
+    width: 100%;
+    /* Or set height: 100% to adjust the height instead */
+    height: 100%;
+    /* Automatically adjust the height to maintain aspect ratio */
+    object-fit: cover;
+    /* Scale the image to fit within the container while maintaining aspect ratio */
+  }
+  .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* First make sure the video thumbnail images are responsive. */
+
+img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #selected-videos-container{
+    padding: 8px;
+  }
+  #selected-videos-container img{
+    margin: 0px 8px;
+  }

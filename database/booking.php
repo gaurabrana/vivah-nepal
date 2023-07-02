@@ -76,8 +76,8 @@ if (isset($_POST['bookingType'])) {
                 else{
                     $code = 202; 
                 }                           
-        echo json_encode(array("statusCode" => $code,"bookid" => $event_bookId));        
+        echo json_encode(array("code" => 200,"bookid" => $event_bookId));        
     } else {
-        echo json_encode(array("statusCode" => 201,"bookid" => $event_bookId));          
+        echo json_encode(array("code" => 201,"bookid" => $event_bookId));          
     }
 }

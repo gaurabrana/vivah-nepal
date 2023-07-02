@@ -4,17 +4,19 @@ include('base/db.php');
 
 if (!isset($_SESSION['phpstartup_adminid'])) {
     if (isset($_POST['submit'])) {
-        $userName = $_POST['userName'];
+        $userName = strtolower($_POST['userName']);
         $password = $_POST['password'];
 
-        $sql = "SELECT * FROM admin WHERE userName='$userName' AND password='$password'";
+        $sql = "SELECT * FROM admin WHERE email='$userName' AND password='$password'";
 
         $result = $conn->query($sql);
 
         if ($result->rowCount() > 0) {
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $_SESSION['phpstartup_adminid'] = $row['id'];
+                $_SESSION['adminUsername'] = $row['userName'];
                 $_SESSION['email'] = $row['email'];
+                $_SESSION['role'] = $row['role'];
                 echo "<script> location.href = 'home.php';</script>";
             }
         } else {
@@ -30,15 +32,15 @@ if (!isset($_SESSION['phpstartup_adminid'])) {
     <head>
         <!-- Basic Page Info -->
         <meta charset="utf-8">
-        <meta property="og:title" content="Park Management System using PHP and MySQL" />
-        <link rel="canonical" href="https://phpstartup.com/" />
+        <meta property="og:title" content="Vivah Nepal Admin" />
+        <link rel="canonical" href="https://vivahnepal.com" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://phpstartup.com/" />
-        <meta name="author" content="Nitin Kumar">
+        <meta property="og:url" content="https://vivahnepal.com" />
+        <meta name="author" content="VIvah Nepal">
         <meta name="twitter:site" content="@StartupPhp">
         <meta property="og:site_name" content="Php Startup">
 
-        <title>Park Management System using PHP and MySQL</title>
+        <title>Vivah Nepal Admin Panel</title>
 
         <!-- Site favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
@@ -92,7 +94,7 @@ if (!isset($_SESSION['phpstartup_adminid'])) {
                     <div class="col-md-6 col-lg-5">
                         <div class="login-box bg-white box-shadow border-radius-10">
                             <div class="login-title">
-                                <h2 class="text-center text-primary">Login To DeskApp</h2>
+                                <h2 class="text-center text-primary">Login To Vivah Nepal</h2>
                             </div>
 
 

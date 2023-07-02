@@ -108,7 +108,7 @@ $error = "";
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label" for="val-image">Ad Image<span class="text-danger"></span>
                                         </label>
-                                        <input type="file" required id="image-input" name="fileToUpload" accept="image/gif" onchange="previewImage(this)">
+                                        <input type="file" required id="image-input" name="fileToUpload" accept="image/*" onchange="previewImage(this)">
                                     </div>
                                     <img id="image-preview" src="" alt="Image Preview">
                                 </div>

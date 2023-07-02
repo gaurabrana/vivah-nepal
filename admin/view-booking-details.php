@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
           <?php
           $editid = $_GET['editid'];
 
-          $sql = "SELECT users.name,users.mobile,users.age,users.gender,users.email,users.address,booking.bookingId,booking.eventName,booking.numberOfGuest,booking.bookingFrom,booking.bookingTo,booking.place,booking.message,booking.bookingDate,booking.remark,booking.status,booking.postDate,   services.serviceName,services.servicePrice,services.servicDescription from booking join services on booking.eventId=services.id join users on users.id=booking.userId  where booking.id=:editid";
+          $sql = "SELECT users.name,users.mobile,users.email,users.address,booking.* from booking join users on users.id=booking.userId  where booking.id=:editid";
 
           $query = $conn->prepare($sql);
 
@@ -75,8 +75,38 @@ if (isset($_POST['submit'])) {
           $results = $query->fetchAll(PDO::FETCH_OBJ);
 
 
-          if ($query->rowCount() > 0) {
+          if ($query->rowCount() > 0) {            
             foreach ($results as $row) {
+              $isEvent = false;
+              $dataName = "";
+              $dataDescription = "";
+              $dataPrice = "";                            
+              if($row->eventId != null){
+                $isEvent = true;
+                $detailSql = "Select * from event where id = $row->eventId";                
+                $detailQuery = $conn->prepare($detailSql);              
+      
+                $detailQuery->execute();
+      
+                $dataRes = $detailQuery->fetch(PDO::FETCH_OBJ);
+                $dataName = $dataRes->eventName;
+              $dataDescription = $dataRes->description;
+              $dataPrice = $dataRes->price;              
+              }
+              else if($row->serviceId != null){
+                $isEvent = false;
+                $detailSql = "Select * from services where id = $row->serviceId";
+                $detailQuery = $conn->prepare($detailSql);              
+      
+                $detailQuery->execute();
+      
+                $dataRes = $detailQuery->fetch(PDO::FETCH_OBJ);
+                $dataName = $dataRes->serviceName;
+              $dataDescription = $dataRes->serviceDescription;
+              $dataPrice = $dataRes->servicePrice;              
+              }
+
+              
           ?>
               <table class="table table-bordered table-striped ">
                 <tr style="background-image: linear-gradient(#0b92b1,#841caf);">
@@ -87,15 +117,7 @@ if (isset($_POST['submit'])) {
                   <td><?php echo $row->name; ?></td>
                   <th>Mobile</th>
                   <td><?php echo $row->mobile; ?></td>
-                </tr>
-
-
-                <tr>
-                  <th>Age</th>
-                  <td><?php echo $row->age; ?></td>
-                  <th>Gender</th>
-                  <td><?php echo $row->gender; ?></td>
-                </tr>
+                </tr>                
 
                 <tr>
                   <th>Email</th>
@@ -127,14 +149,14 @@ if (isset($_POST['submit'])) {
 
                 <tr>
                   <th>Service Name</th>
-                  <td><?php echo $row->serviceName; ?></td>
+                  <td><?php echo $dataName; ?></td>
                   <th>Service Price</th>
-                  <td>$<?php echo $row->servicePrice; ?></td>
+                  <td>$<?php echo $dataPrice; ?></td>
                 </tr>
 
                 <tr>
                   <th>Service Description</th>
-                  <td><?php echo $row->servicDescription; ?></td>
+                  <td><?php echo $dataDescription; ?></td>
                   <th>Booking Date</th>
                   <td><?php echo $row->bookingDate; ?></td>
                 </tr>
@@ -176,6 +198,13 @@ if (isset($_POST['submit'])) {
               </table>
           <?php
             }
+          }
+          else{
+            echo'
+            <div class="error">
+            <h4>No Data Found</h4>
+            </div>
+            ';
           }
           ?>
 

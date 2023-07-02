@@ -6,15 +6,18 @@
 </div>
 
 	<!-- js -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>	
 	<script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/script.min.js"></script>
 	<script src="vendors/scripts/process.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 	<script src="src/scripts/toastr.min.js"></script>
   <script src="src/scripts/toastr.init.js"></script>
 	<script src="src/scripts/addImage.js" type="text/javascript"></script>
+	<script src="src/scripts/membership.js"></script>
 	<script src="src/scripts/custom.js" type="text/javascript"></script>	
+	<script type="text/javascript" src="src/scripts/pages.js"></script>
 	<!-- js -->		
 		<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 		<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>

@@ -50,7 +50,7 @@
 						<span class="user-icon">
 							<img src="vendors/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">Admin</span>
+						<span class="user-name"><?php echo $_SESSION['adminUsername']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="profile.php"><i class="dw dw-user1"></i> Profile</a>
@@ -65,8 +65,8 @@
 	<div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="home.php">
-				<img src="vendors/images/logo.png" alt="" class="dark-logo">
-				<img src="vendors/images/logo.png" alt="" class="light-logo">
+				<img src="../images/logo/logo.png" alt="" class="dark-logo">
+				<img src="../images/logo/logo.png" alt="" class="light-logo">
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>
@@ -103,7 +103,7 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">All Pages</span>
+							<span class="micon dw dw-page1"></span><span class="mtext">All Pages</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="manage-pages.php">Manage Pages</a></li>
@@ -111,7 +111,7 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">Booking</span>
+							<span class="micon dw dw-invoice"></span><span class="mtext">Booking</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="new-booking.php">New Booking</a></li>
@@ -123,35 +123,71 @@
 
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">Gallery</span>
+							<span class="micon dw dw-gallery"></span><span class="mtext">Gallery</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="manage-ad.php">Add Images</a></li>
-							<li><a href="add-ad.php">Add Videos</a></li>
+							<li><a href="gallery-image.php">Add Images</a></li>
+							<li><a href="gallery-video.php">Add Videos</a></li>
+							<li><a href="manage-gallery.php">Manage Gallery</a></li>
 						</ul>
 					</li>
 
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">Manage Ads</span>
+							<span class="micon fa fa-buysellads"></span><span class="mtext">Manage Ads</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="add-ad.php">Add New Ad</a></li>					
 							<li><a href="manage-ad.php">Manage Ads</a></li>
 						</ul>
 					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user"></span><span class="mtext">Users</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="manage-user.php">Manage Users</a></li>
+							<li><a href="manage-admin.php">Manage Admins</a></li>
+							<li><a href="manage-admin-emails.php">Notify Admin Email Address</a></li>
+						</ul>
+					</li>
 
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">About Us Details</span>
+							<span class="micon dw dw-notification"></span><span class="mtext">Homepage Popup</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="manage-ad.php">Update Details</a></li>
+							<li><a href="homepage-popup.php">Manage Home Page Popup Ad</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-paint-brush"></span><span class="mtext">Enquiry</span>
+							<span class="micon ti ti-package"></span><span class="mtext">Memberships</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="membership.php">Manage Packages</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon fi fi-social-blogger"></span><span class="mtext">Blog</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="add-blog.php">Add Blog</a></li>
+							<li><a href="manage-blog.php">Manage Blogs</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon ion ion-android-contact"></span><span class="mtext">About Us Details</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="about-us-detail.php">Update Details</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon fa fa-question-circle"></span><span class="mtext">Enquiry</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="unread-queries.php">Unread Queries</a></li>
@@ -161,17 +197,24 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-paint-brush"></span><span class="mtext">Report</span>
+							<span class="micon dw dw-information"></span><span class="mtext">Search</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="report.php">Report</a></li>
+							<li><a href="report.php">Booking</a></li>							
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-mail"></span><span class="mtext">Report Issues</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="report-issue.php">Message Developer</a></li>
 
 						</ul>
 					</li>
-
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-paint-brush"></span><span class="mtext">Search</span>
+							<span class="micon dw dw-search"></span><span class="mtext">Search</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="search.php">Search</a></li>
@@ -183,7 +226,7 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-analytics-21"></span><span class="mtext">Profile</span>
+							<span class="micon dw dw-user3"></span><span class="mtext">Profile</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="profile.php">Profile</a></li>

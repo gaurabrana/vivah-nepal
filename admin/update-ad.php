@@ -5,7 +5,10 @@ if (isset($_SESSION['phpstartup_adminid'])) {
     include 'base/db.php';
     $username = $_SESSION['phpstartup_adminid'];
     if(isset($_GET['id'])){
-        $updateId = $_GET['id'];
+        $adId = $_GET['id'];
+    }
+    else{
+        echo "<script> location.href='manage-ad.php'; </script>";    
     }
 } else {
     echo "<script> location.href='index.php'; </script>";
@@ -33,41 +36,13 @@ $error = "";
 
                 </div>
             </div>
-
-
-
-            <?php
-            if (isset($_POST['submit'])) {
-                if ($error) {
-            ?>
-
-
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo htmlentities($error); ?>
-                    </div>
-
-
-                <?php
-                } else if ($msg) {
-                ?>
-
-
-                    <div class="alert alert-primary" role="alert">
-                        <?php echo htmlentities($msg); ?>
-                    </div>
-
-
-            <?php
-                }
-            }
-            ?>
             <div class="pd-20 card-box mb-30">
 
                 <div class="clearfix">
                     <h4 class="text-blue h4">Add Advertisement</h4>
                 </div>
                 <div class="wizard-content">
-                    <form id="add-advertisement" class="tab-wizard wizard-circle wizard" enctype="multipart/form-data" method="post">
+                    <form id="update-advertisement" class="tab-wizard wizard-circle wizard" enctype="multipart/form-data" method="post">
                         <section>
                             <div class="row">
                                 <div class="col-md-6">
@@ -75,13 +50,21 @@ $error = "";
                                         <label>Screen Name</label>
                                         <select class="form-control" name="screen-group" id="screen-group-name">
                                             <?php
-                                            $sql = "SELECT id, name from ad_screens where id = ;";
+                                            $adSql = "SELECT * from ads where id = '$adId'";
+                                            $adQuery = $conn->query($adSql);
+                                            $adQuery->execute();
+                                            $adItem = $adQuery->fetch(PDO::FETCH_OBJ);
+                                            $sql = "SELECT id, name from pages";
                                             $query = $conn->query($sql);
                                             $query->execute();
                                             $result = $query->fetchAll(PDO::FETCH_OBJ);
                                             if ($query->rowCount() > 0) {
                                                 foreach ($result as $row) {
-                                                    echo '<option title="selectScreen" value="' . $row->id . '">' . $row->name . '</option>';
+                                                    echo '<option title="selectScreen" ';  
+                                                    if($row->id == $adItem->screen_id){
+                                                        echo " selected ";
+                                                    }
+                                                    echo'value="' . $row->id . '">' . $row->name . '</option>';
                                                 }
                                             }
                                             ?>
@@ -93,7 +76,30 @@ $error = "";
                                     <div class="form-group">
                                         <label>Ad Position</label>
                                         <select class="form-control" id="ad-posi" name="ad-position">
-                                            <option value="new">Choose Position</option>
+                                            <?php
+                                            for($i = 1; $i <= 4; $i++){
+                                                $name = "";
+                                                switch ($i) {
+                                                    case 1:
+                                                        $name = "First Ad";
+                                                        break;
+                                                    case 2:
+                                                        $name = "Second Ad";
+                                                        break;
+                                                    case 3:
+                                                        $name = "Third Ad";
+                                                        break;
+                                                    case 4:
+                                                        $name = "Fourth Ad";
+                                                        break;
+                                                }
+                                                echo'<option '; 
+                                                if($adItem->screen_index == $i){
+                                                    echo " selected ";
+                                                }
+                                                echo'value="'.$i.'">'.$name.'</option>';
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -102,7 +108,7 @@ $error = "";
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Ad On Click Redirect To</label>
-                                        <input type="text" class="form-control" id="redirectUrlId" name="redirectUrl" placeholder="rediectTo.com" />
+                                        <input type="text" class="form-control" value="<?php echo $adItem->redirect_url; ?>" id="redirectUrlId" name="redirectUrl" placeholder="rediectTo.com" />
                                     </div>
                                 </div>
                             </div>
@@ -111,9 +117,11 @@ $error = "";
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label" for="val-image">Ad Image<span class="text-danger"></span>
                                         </label>
-                                        <input type="file" required id="image-input" name="fileToUpload" accept="image/gif" onchange="previewImage(this)">
+                                        <input type="file" id="image-input" name="fileToUpload" accept="image/*" onchange="previewImage(this)" />
+                                        <input type="text" hidden value="<?php echo $adItem->path; ?>"  id="image-input" name="currentPath" />
+                                        <input type="text" hidden value="<?php echo $adItem->id; ?>" required id="image-input" name="currentId" />
                                     </div>
-                                    <img id="image-preview" src="" alt="Image Preview">
+                                    <img id="image-preview" src="../images/ads/<?php echo $adItem->path; ?>" alt="Image Preview">
                                 </div>
                             </div>
                             <div class="btn-list">

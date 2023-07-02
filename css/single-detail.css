@@ -259,10 +259,11 @@ margin-bottom: 30px;
 }
 .product-item .product-thumb {
 position: relative;
+height: 200px;
 }
 .product-item .product-thumb img {
 width: 100%;
-height: auto;
+height: 100%;
 }
 .product-item .product-thumb .bage {
 position: absolute;

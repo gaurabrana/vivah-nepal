@@ -23,7 +23,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$totalServices = $query->rowCount();
 			?>
 			<div class="col-lg-6 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="manage-services.php">
 					<div class="card-box pd-30 height-100-p" style="background-image: linear-gradient(#d713ad,#4173b1);">
 
 						<div class="progress-box text-center">
@@ -44,7 +44,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$totalEvent = $query->rowCount();
 			?>
 			<div class="col-lg-6 col-md-6 col-sm-12 mb-30">
-				<a href="add-foreigners-ticket.php">
+				<a href="manage-event.php">
 					<div class="card-box pd-30 height-100-p" style="background-image: linear-gradient(#0c9b4b,#9bb141);">
 
 						<div class="progress-box text-center">
@@ -69,7 +69,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			?>
 
 			<div class="col-lg-3 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="new-booking.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#25a8bd">
 						<div class="progress-box text-center">
 							<h5 class="text-white padding-top-10 h5">New Booking</h5>
@@ -88,7 +88,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$approvedBooking = $query->rowCount();
 			?>
 			<div class="col-lg-3 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="approved-booking.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#19b33a">
 
 						<div class="progress-box text-center">
@@ -109,7 +109,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$cancelledBooking = $query->rowCount();
 			?>
 			<div class="col-lg-3 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="cancelled-booking.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#949d0f">
 
 						<div class="progress-box text-center">
@@ -130,7 +130,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$totalBooking = $query->rowCount();
 			?>
 			<div class="col-lg-3 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="all-booking.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#9d160f">
 
 						<div class="progress-box text-center">
@@ -145,13 +145,6 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 
 		</div>
 
-
-
-
-
-
-
-
 		<div class="row clearfix progress-box">
 
 			<?php
@@ -162,7 +155,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$unreadQueries = $query->rowCount();
 			?>
 			<div class="col-lg-6 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="unread-queries.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#194391">
 
 						<div class="progress-box text-center">
@@ -186,7 +179,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
 			$readQueries = $query->rowCount();
 			?>
 			<div class="col-lg-6 col-md-6 col-sm-12 mb-30">
-				<a href="add-normal-ticket.php">
+				<a href="read-queries.php">
 					<div class="card-box pd-30 height-100-p" data-bgcolor="#0a443c">
 
 						<div class="progress-box text-center">

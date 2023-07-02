@@ -54,7 +54,7 @@ if (isset($_REQUEST['update'])) {
 				FROM 
 					ads ad 
 					INNER JOIN pages ads 
-					ON ads.id = ad.page_id  
+					ON ads.id = ad.screen_id  
 				ORDER BY 
 					ad.id DESC;
 				";
@@ -81,9 +81,8 @@ if (isset($_REQUEST['update'])) {
 									<tr>
 										<td><?php echo $row["id"]; ?></td>
 										<td><?php echo $row['name']; ?></td>
-										<td><img src='<?php
-														$imagePath = explode('images/', $row['path'])[1];
-														echo "../images/" . $imagePath;
+										<td><img src='<?php														
+														echo "../images/ads/" . $row['path'];
 														?>'></td>
 										<td><?php echo $row['screen_index']; ?></td>
 										<td><span class="badge badge-warning"><?php echo $row['modified']; ?></span></td>
@@ -93,7 +92,7 @@ if (isset($_REQUEST['update'])) {
 												<input type="hidden" name="id" value="<?php echo $row["id"] ?>">
 
 												<div class="btn-group">
-													<button type="submit" class="btn btn-danger" name="delete"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
+													<button type="submit" id="adDeleteButton<?php echo $row["id"] ?>" class="btn btn-danger deleteAdsButton" name="delete"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
 												</div>
 												<a href="update-ad.php?id=<?php echo $row["id"] ?>" class="btn btn-secondary" name="update"><i class="icon-copy fa fa-edit" aria-hidden="true"></i></a>
 

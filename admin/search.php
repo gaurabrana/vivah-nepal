@@ -86,8 +86,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
                                 <th>S.NO</th>
                                 <th>Booking Id</th>
                                 <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Age</th>
+                                <th>Mobile</th>                                
                                 <th>Email</th>
                                 <th>Booking Date</th>
                                 <th>Status</th>
@@ -97,7 +96,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
                         <tbody>
                             <?php
 
-                            $sql = "SELECT users.name,users.mobile,users.age,users.email,booking.id as bid,booking.bookingId,booking.bookingDate,booking.status from booking join users on users.id=booking.userId where booking.bookingId like '$searchdata%' || users.name like '$searchdata%' || users.mobile like '$searchdata%' order by booking.id desc ";
+                            $sql = "SELECT users.name,users.mobile,users.email,booking.id as bid,booking.bookingId,booking.bookingDate,booking.status from booking join users on users.id=booking.userId where booking.bookingId like '$searchdata%' || users.name like '$searchdata%' || users.mobile like '$searchdata%' order by booking.id desc ";
 
                             $query = $conn->prepare($sql);
                             $query->execute();
@@ -111,8 +110,7 @@ if (isset($_SESSION['phpstartup_adminid'])) {
                                         <td><?php echo $cnt; ?></td>
                                         <td><?php echo htmlentities($row->bookingId); ?></td>
                                         <td><?php echo htmlentities($row->name); ?></td>
-                                        <td><?php echo htmlentities($row->mobile); ?></td>
-                                        <td><?php echo htmlentities($row->age); ?></td>
+                                        <td><?php echo htmlentities($row->mobile); ?></td>                                        
                                         <td><?php echo htmlentities($row->email); ?></td>
 
                                         <td><span class="badge badge-warning"><?php echo htmlentities($row->bookingDate); ?></span></td>

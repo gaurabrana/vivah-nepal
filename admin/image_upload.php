@@ -21,7 +21,7 @@ if (!$hasError) {
 
 // (C) MOVE UPLOADED FILE OUT OF TEMP FOLDER
 if (!$hasError) { 
-  $directorypath = "../img/events/";
+  $directorypath = "../img/event";
   $path = createDir($directorypath);  
   $source = $_FILES["imageSub"]["tmp_name"];
   if(isset($_POST['type'])){

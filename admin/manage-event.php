@@ -52,9 +52,12 @@ if (isset($_REQUEST['delete'])) {
 						<table class="table hover multiple-select-row data-table-export nowrap">
 							<thead>
 								<tr>
-									<th>S.NO</th>
+									<th>No</th>
 									<th>Event Name</th>
-									<th>Creation Date</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Price (Rs)</th>
+									<th>Location</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -65,11 +68,16 @@ if (isset($_REQUEST['delete'])) {
 									<tr>
 										<td><?php echo $cnt; ?></td>
 										<td><?php echo $row['eventName']; ?></td>
-										<td><span class="badge badge-warning"><?php echo $row['creationDate']; ?></span></td>
+										<td><?php echo $row['startDate']; ?></td>
+										<td><?php echo $row['endDate']; ?></td>
+										<td><?php echo $row['price']; ?></td>
+										<td><?php echo $row['location']; ?></td>
 										<td>
 											<form action="" method="POST">
 												<input type="hidden" name="id" value="<?php echo $row["id"] ?>">
-
+												<div class="btn-group">
+													<a href="manage-single-event.php?id=<?php echo $row["id"] ?>" type="button" class="btn btn-secondary" name="update"><i class="icon-copy fa fa-edit" aria-hidden="true"></i></a>
+												</div>
 												<div class="btn-group">
 													<button type="submit" class="btn btn-danger" name="delete"><i class="icon-copy fa fa-trash" aria-hidden="true"></i></button>
 												</div>
@@ -94,23 +102,3 @@ if (isset($_REQUEST['delete'])) {
 		<?php
 		include("base/footer.php");
 		?>
-
-		<!-- js -->
-		<script src="vendors/scripts/script.min.js"></script>
-		<script src="vendors/scripts/process.js"></script>
-		<script src="vendors/scripts/layout-settings.js"></script>
-		<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-		<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-		<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-		<!-- buttons for Export datatable -->
-		<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-		<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-		<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-		<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-		<!-- Datatable Setting js -->
-		<script src="vendors/scripts/datatable-setting.js"></script>
-		</body>

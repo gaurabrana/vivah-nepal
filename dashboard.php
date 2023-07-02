@@ -5,7 +5,6 @@ if (!isset($_SESSION)) {
 //Include Google Configuration File
 include('admin/base/db.php');
 include('google/config.php');
-include('User.php');
 if (isset($_SESSION['user_id'])) {
   header("Location: index.php");
 }
@@ -48,8 +47,7 @@ if (isset($_GET["code"])) {
     }
 
     if (!empty($data['id'])) {      
-      $auth_id = $data['id'];
-      $_SESSION['user_id'] = $auth_id;      
+      $auth_id = $data['id'];      
       $_SESSION['oauth_provider'] = "google";
     }
     $name = $user_first_name . ' ' . $user_last_name;
@@ -57,19 +55,25 @@ if (isset($_GET["code"])) {
     $sqlForExisting = "SELECT id FROM users WHERE oauth_provider = '$oauth_provider' AND oauth_uid = '$auth_id'";
     $query = $conn->prepare($sqlForExisting);    
     $query->execute(); 
-    $results = $query->fetch();
-
-    if ($query->rowCount() > 0) {      
-      //Update user data if already exists      
-      $crudquery = "UPDATE users SET name = 'changed anme', email = '$user_email_address', picture = '$user_image' WHERE oauth_provider = '$oauth_provider' AND oauth_uid = '$auth_id'";
+    $results = $query->fetch(PDO::FETCH_OBJ);
+    if ($query->rowCount() > 0) {
+      echo "fetching data";
+      $_SESSION['user_id'] = $results->id;
+      //Update user data if already exists
+      echo "update data";      
+      $crudquery = "UPDATE users SET name = '$name', email = '$user_email_address', picture = '$user_image' WHERE oauth_provider = '$oauth_provider' AND oauth_uid = '$auth_id'";
     } else {
       //Insert user data
+      echo "insert data";
       $crudquery = "INSERT INTO users (oauth_provider , oauth_uid , name , email,picture) values ('$oauth_provider', '$auth_id',$name','$user_email_address', '$user_image')";      
     }
     $sqlPrepared = $conn->prepare($crudquery);
     $sqlPrepared->execute();
     
-    if ($sqlPrepared) {
+    if ($sqlPrepared) {      
+	    // Get the ID of the inserted or updated row
+    $user_id = $conn->lastInsertId(); // use lastInsertId() if INSERT statement is executed, or use $query->rowCount() if UPDATE statement is executed
+    $_SESSION['user_id'] = $user_id;
       header('Location: index.php');
     }
   }
